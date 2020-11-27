@@ -1,4 +1,4 @@
-package org.openrewrite.refactor;
+package org.openrewrite;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,17 +14,17 @@ import org.openrewrite.java.JavaParser;
 
 public class SourceFiles {
     public static List<SourceFile> fromDirectory(String sourceDirectory) throws IOException {
-        JavaParser javaParser = JavaParser.fromJavaVersion().build();
-        List<Path> javaSources = new ArrayList<>(listJavaSources(sourceDirectory));
+        final JavaParser javaParser = JavaParser.fromJavaVersion().build();
+        final List<Path> javaSources = new ArrayList<>(listJavaSources(sourceDirectory));
         return new ArrayList<>(javaParser.parse(javaSources, Paths.get(sourceDirectory)));
     }
 
     private static List<Path> listJavaSources(String sourceDirectory) throws IOException {
-        File sourceDirectoryFile = new File(sourceDirectory);
+        final File sourceDirectoryFile = new File(sourceDirectory);
         if (!sourceDirectoryFile.exists()) {
             return emptyList();
         }
-        Path sourceRoot = sourceDirectoryFile.toPath();
+        final Path sourceRoot = sourceDirectoryFile.toPath();
             return Files.walk(sourceRoot)
                 .filter(f -> !Files.isDirectory(f) && f.toFile().getName().endsWith(".java"))
                 .collect(toList());
