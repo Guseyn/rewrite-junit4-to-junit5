@@ -9,7 +9,9 @@ import org.junit.Test;
 
 public class FirstTest {
     @Test
-    public void testSomething() { }
+    public void testSomething() {
+        org.junit.Assert.assertTrue(true);
+    }
 
     @Before
     public void before() { }
