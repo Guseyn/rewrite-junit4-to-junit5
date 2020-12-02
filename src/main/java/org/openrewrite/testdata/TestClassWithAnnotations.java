@@ -7,10 +7,10 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class FirstTest {
+public class TestClassWithAnnotations {
     @Test
     public void testSomething() {
-        org.junit.Assert.assertTrue(true);
+        org.junit.jupiter.api.Assertions.assertTrue(true);
     }
 
     @Before
