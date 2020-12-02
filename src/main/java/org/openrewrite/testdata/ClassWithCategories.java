@@ -1,9 +1,9 @@
 package org.openrewrite.testdata;
-
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
 
 public class ClassWithCategories {
-    @Category({FastTests.class, SlowTests.class})
+    
+    @Tag(FastTests.class)
     public class B {
 
     }
