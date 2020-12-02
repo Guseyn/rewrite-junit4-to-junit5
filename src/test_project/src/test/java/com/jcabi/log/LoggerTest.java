@@ -29,15 +29,18 @@
  */
 package com.jcabi.log;
 
+import org.apache.log4j.LogManager;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import org.apache.log4j.LogManager;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link Logger}.
@@ -78,9 +81,9 @@ public final class LoggerTest {
      * Logger can not format arrays since they are interpreted as varags.
      * @throws Exception If something goes wrong
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void doesntFormatArraysSinceTheyAreVarArgs() throws Exception {
-        Logger.format("array: %[list]s", new Object[] {"hi", 1});
+        assertThrows(IllegalArgumentException.class, () -> Logger.format("array: %[list]s", new Object[] {"hi", 1}));
     }
 
     /**
@@ -115,18 +118,18 @@ public final class LoggerTest {
      * Logger throws an exception when there are less parameters than there
      * are format args.
      */
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test
     public void throwsWhenParamsLessThanFormatArgs() {
-        Logger.format("String %s Char %c Number %d", "howdy", 'x');
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> Logger.format("String %s Char %c Number %d", "howdy", 'x'));
     }
 
     /**
      * Logger throws an exception when there are more parameters than there
      * are format args.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void throwsWhenParamsMoreThanFormatArgs() {
-        Logger.format("String %s Number %d Char %c", "hey", 1, 'x', 2);
+        assertThrows(IllegalArgumentException.class, () -> Logger.format("String %s Number %d Char %c", "hey", 1, 'x', 2));
     }
 
     /**

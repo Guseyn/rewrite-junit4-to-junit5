@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.Formattable;
 import java.util.Formatter;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.hamcrest.MockitoHamcrest;
 

@@ -29,15 +29,15 @@
  */
 package com.jcabi.log;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link VerboseRunnable}.
@@ -52,13 +52,13 @@ public final class VerboseRunnableTest {
      * VerboseRunnable can log exceptions inside Runnable.
      * @throws Exception If something goes wrong
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void logsExceptionsInRunnable() throws Exception {
-        new VerboseRunnable(
+        assertThrows(IllegalArgumentException.class, () -> new VerboseRunnable(
             (Runnable) () -> {
                 throw new IllegalArgumentException("oops");
             }
-        ).run();
+        ).run());
     }
 
     /**

@@ -33,7 +33,7 @@ import java.util.Formattable;
 import java.util.Formatter;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.hamcrest.MockitoHamcrest;
 import org.w3c.dom.Document;

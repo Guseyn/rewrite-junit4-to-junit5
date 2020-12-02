@@ -11,7 +11,7 @@ import org.openrewrite.visitors.ExpectedExceptionToAssertThrows;
 import org.openrewrite.visitors.ReplaceAnnotationOnMethods;
 
 public class Main {
-    private static final String CODE_FOLDER = "src/main/java/org/openrewrite/testdata";
+    private static final String CODE_FOLDER = "src/test_project";
     public static void main(String... args) throws IOException {
         List<RefactorVisitor<?>> visitors = Arrays.asList(
             new AssertToAssertions(),

@@ -29,17 +29,6 @@
  */
 package com.jcabi.log;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.SimpleLayout;
@@ -48,11 +37,20 @@ import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Assume;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.io.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link VerboseProcess}.
@@ -74,8 +72,7 @@ public final class VerboseProcessTest {
      * @throws Exception If something goes wrong
      * @link http://stackoverflow.com/questions/24802042
      */
-    @Test
-    @Ignore
+    @Test@Disabled
     public void runsACommandLineScript() throws Exception {
         Assume.assumeFalse(SystemUtils.IS_OS_WINDOWS);
         final VerboseProcess process = new VerboseProcess(
@@ -92,8 +89,7 @@ public final class VerboseProcessTest {
      * @throws Exception If something goes wrong
      * @link http://stackoverflow.com/questions/24802042
      */
-    @Test
-    @Ignore
+    @Test@Disabled
     public void echosUnicodeCorrectly() throws Exception {
         Assume.assumeFalse(SystemUtils.IS_OS_WINDOWS);
         MatcherAssert.assertThat(
@@ -120,7 +116,7 @@ public final class VerboseProcessTest {
         );
         try {
             process.stdout();
-            Assert.fail("exception expected");
+            Assertions.fail("exception expected");
         } catch (final IllegalArgumentException ex) {
             MatcherAssert.assertThat(
                 ex.getMessage(),
@@ -171,10 +167,12 @@ public final class VerboseProcessTest {
      * VerboseProcess can reject NULL.
      * @throws Exception If something goes wrong
      */
-    @Test(expected = RuntimeException.class)
+    @Test
     public void rejectsNullProcesses() throws Exception {
-        final ProcessBuilder builder = null;
-        new VerboseProcess(builder);
+        assertThrows(RuntimeException.class, () -> {
+            final ProcessBuilder builder = null;
+            new VerboseProcess(builder);
+        });
     }
 
     /**
@@ -187,7 +185,7 @@ public final class VerboseProcessTest {
             new VerboseProcess(
                 Mockito.mock(Process.class), Level.ALL, Level.INFO
             );
-            Assert.fail("IllegalArgumentException expected");
+            Assertions.fail("IllegalArgumentException expected");
         } catch (final IllegalArgumentException ex) {
             MatcherAssert.assertThat(
                 ex.getMessage(),
@@ -211,7 +209,7 @@ public final class VerboseProcessTest {
             new VerboseProcess(
                 Mockito.mock(Process.class), Level.INFO, Level.ALL
             );
-            Assert.fail("IllegalArgumentException expected here");
+            Assertions.fail("IllegalArgumentException expected here");
         } catch (final IllegalArgumentException ex) {
             MatcherAssert.assertThat(
                 ex.getMessage(),

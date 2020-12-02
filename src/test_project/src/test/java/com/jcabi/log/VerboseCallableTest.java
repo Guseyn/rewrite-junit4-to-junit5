@@ -29,8 +29,11 @@
  */
 package com.jcabi.log;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.concurrent.Callable;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link VerboseCallable}.
@@ -45,16 +48,16 @@ public final class VerboseCallableTest {
      * VerboseCallable can log exceptions inside Callable.
      * @throws Exception If something goes wrong
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void logsExceptionsInCallable() throws Exception {
-        new VerboseCallable<Integer>(
+        assertThrows(IllegalArgumentException.class, () -> new VerboseCallable<Integer>(
             new Callable<Integer>() {
                 @Override
                 public Integer call() {
                     throw new IllegalArgumentException("oops");
                 }
             }
-        ).call();
+        ).call());
     }
 
 }

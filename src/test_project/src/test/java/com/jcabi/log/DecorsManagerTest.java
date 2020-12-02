@@ -31,7 +31,9 @@ package com.jcabi.log;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link DecorsManager}.
@@ -58,9 +60,9 @@ public final class DecorsManagerTest {
      * DecorsManager can throw exception if a decor is missed.
      * @throws Exception If some problem
      */
-    @Test(expected = DecorException.class)
+    @Test
     public void throwsExceptionForAbsentDecor() throws Exception {
-        DecorsManager.decor("non-existing-formatter", null);
+        assertThrows(DecorException.class, () -> DecorsManager.decor("non-existing-formatter", null));
     }
 
 }
