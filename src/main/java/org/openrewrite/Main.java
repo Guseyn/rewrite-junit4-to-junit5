@@ -1,46 +1,49 @@
 package org.openrewrite;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import org.openrewrite.java.AddImport;
-import org.openrewrite.java.RemoveImport;
-import org.openrewrite.java.UseStaticImport;
+import java.util.Arrays;
+import java.util.List;
+import org.openrewrite.java.testing.junit5.AssertToAssertions;
+import org.openrewrite.java.testing.junit5.CategoryToTag;
+import org.openrewrite.visitors.TemporaryFolderToTempDir;
+import org.openrewrite.visitors.UpdateTestAnnotation;
+import org.openrewrite.visitors.ExpectedExceptionToAssertThrows;
 import org.openrewrite.visitors.ReplaceAnnotationOnMethods;
 
 public class Main {
+    private static final String CODE_FOLDER = "src/main/java/org/openrewrite/testdata";
     public static void main(String... args) throws IOException {
-        RefactorProcessor.run(new ArrayList<>(){{
-            UseStaticImport si = new UseStaticImport();
-            si.setMethod("org.junit.Assert assert*(..)");
-            add(si);
-            RemoveImport ri = new RemoveImport();
-            ri.setType("org.junit.Assert");
-            add(ri);
-            AddImport ai = new AddImport();
-            ai.setType("org.junit.jupiter.api.Assertions");
-            ai.setOnlyIfReferenced(false);
-            add(ai);
-            /* add(new ReplaceAnnotationOnMethods(
-                "org.junit.Test", "org.junit.jupiter.api.Test"
-            ));
-            add(new ReplaceAnnotationOnMethods(
-                "org.junit.Before", "org.junit.jupiter.api.BeforeEach"
-            ));
-            add(new ReplaceAnnotationOnMethods(
-                "org.junit.After", "org.junit.jupiter.api.AfterEach"
-            ));
-            add(new ReplaceAnnotationOnMethods(
+        List<RefactorVisitor<?>> visitors = Arrays.asList(
+            new AssertToAssertions(),
+            new CategoryToTag(),
+            new ExpectedExceptionToAssertThrows(),
+            new UpdateTestAnnotation(),
+            new TemporaryFolderToTempDir(),
+            new ReplaceAnnotationOnMethods(
+                "org.junit.Test",
+                "org.junit.jupiter.api.Test"
+            ),
+            new ReplaceAnnotationOnMethods(
+                "org.junit.Before",
+                "org.junit.jupiter.api.BeforeEach"
+            ),
+            new ReplaceAnnotationOnMethods(
+                "org.junit.After",
+                "org.junit.jupiter.api.AfterEach"
+            ),
+            new ReplaceAnnotationOnMethods(
                 "org.junit.BeforeClass",
                 "org.junit.jupiter.api.BeforeAll"
-            ));
-            add(new ReplaceAnnotationOnMethods(
+            ),
+            new ReplaceAnnotationOnMethods(
                 "org.junit.AfterClass",
                 "org.junit.jupiter.api.AfterAll"
-            ));
-            add(new ReplaceAnnotationOnMethods(
+            ),
+            new ReplaceAnnotationOnMethods(
                 "org.junit.Ignore",
                 "org.junit.jupiter.api.Disabled"
-            )); */
-        }}, "src/main/java/org/openrewrite/testdata");
+            )
+        );
+        RefactorProcessor.run(visitors, CODE_FOLDER);
     }
 }
