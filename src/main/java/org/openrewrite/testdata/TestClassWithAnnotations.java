@@ -1,11 +1,5 @@
 package org.openrewrite.testdata;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class TestClassWithAnnotations {
     @Test
@@ -13,18 +7,18 @@ public class TestClassWithAnnotations {
         org.junit.jupiter.api.Assertions.assertTrue(true);
     }
 
-    @Before
+    @BeforeEach
     public void before() { }
 
-    @After
+    @AfterEach
     public void after() { }
 
-    @BeforeClass
+    @BeforeAll
     public void beforeClass() { }
 
-    @AfterClass
+    @AfterAll
     public void afterClass() { }
 
-    @Ignore
+    @Disabled
     public void ignore() { }
 }
