@@ -34,8 +34,10 @@ import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link MulticolorLayout}.
@@ -145,14 +147,16 @@ public final class MulticolorLayoutTest {
      * MulticolorLayout can throw if color name is not valid.
      * @throws Exception If something goes wrong
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void throwsOnIllegalColorName() throws Exception {
-        final MulticolorLayout layout = new MulticolorLayout();
-        layout.setConversionPattern("%color-oops{%p} %m");
-        final LoggingEvent event = Mockito.mock(LoggingEvent.class);
-        Mockito.doReturn(Level.DEBUG).when(event).getLevel();
-        Mockito.doReturn("text").when(event).getRenderedMessage();
-        layout.format(event);
+        assertThrows(IllegalArgumentException.class, () -> {
+            final MulticolorLayout layout = new MulticolorLayout();
+            layout.setConversionPattern("%color-oops{%p} %m");
+            final LoggingEvent event = Mockito.mock(LoggingEvent.class);
+            Mockito.doReturn(Level.DEBUG).when(event).getLevel();
+            Mockito.doReturn("text").when(event).getRenderedMessage();
+            layout.format(event);
+        });
     }
 
 }

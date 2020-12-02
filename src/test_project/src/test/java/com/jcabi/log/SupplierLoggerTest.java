@@ -32,8 +32,8 @@ package com.jcabi.log;
 import org.apache.log4j.Level;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link SupplierLogger}.
@@ -73,8 +73,7 @@ public final class SupplierLoggerTest {
      * SupplierLogger can log a message with debug level.
      * @throws Exception If something goes wrong
      */
-    @Test
-    @Ignore
+    @Test@Disabled
     public void debugIsEnabled() throws Exception {
         final String name = "debugen";
         final String appender = "debugapp";
@@ -118,8 +117,7 @@ public final class SupplierLoggerTest {
      * SupplierLogger can log a message with trace level.
      * @throws Exception If something goes wrong
      */
-    @Test
-    @Ignore
+    @Test@Disabled
     public void traceIsEnabled() throws Exception {
         final String name = "enabledtrace";
         final String appender = "traceapp";
@@ -163,8 +161,7 @@ public final class SupplierLoggerTest {
      * SupplierLogger can log a message with warn level.
      * @throws Exception If something goes wrong
      */
-    @Test
-    @Ignore
+    @Test@Disabled
     public void warnIsEnabled() throws Exception {
         final String name = "enwarn";
         final String appender = "warnapp";
@@ -208,8 +205,7 @@ public final class SupplierLoggerTest {
      * SupplierLogger can log a message with info level.
      * @throws Exception If something goes wrong
      */
-    @Test
-    @Ignore
+    @Test@Disabled
     public void infoIsEnabled() throws Exception {
         final String name = "withinfo";
         final String appender = "infoapp";
