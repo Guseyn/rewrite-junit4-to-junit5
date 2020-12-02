@@ -1,16 +1,16 @@
 package org.openrewrite.testdata;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 public class ClassWithAssertsAndMessages {
     void foo() {
-        Assert.assertEquals("One is one", 1, 1);
-        Assert.assertArrayEquals("Empty is empty", new int[]{}, new int[]{});
-        Assert.assertNotEquals("one is not two", 1, 2);
-        Assert.assertFalse("false is false", false);
-        Assert.assertTrue("true is true", true);
-        Assert.assertEquals("foo is foo", "foo", "foo");
-        Assert.assertNull("null is null", null);
-        Assert.fail("fail");
+        Assertions.assertEquals(1, 1, "One is one");
+        Assertions.assertArrayEquals(new int[]{}, new int[]{}, "Empty is empty");
+        Assertions.assertNotEquals(1, 2, "one is not two");
+        Assertions.assertFalse(false, "false is false");
+        Assertions.assertTrue(true, "true is true");
+        Assertions.assertEquals("foo", "foo", "foo is foo");
+        Assertions.assertNull(null, "null is null");
+        Assertions.fail("fail");
     }
 }
