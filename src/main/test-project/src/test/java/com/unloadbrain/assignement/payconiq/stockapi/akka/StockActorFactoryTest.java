@@ -2,9 +2,9 @@ package com.unloadbrain.assignement.payconiq.stockapi.akka;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

@@ -11,33 +11,28 @@ import com.unloadbrain.assignement.payconiq.stockapi.dto.reqeust.UpdateStockRequ
 import com.unloadbrain.assignement.payconiq.stockapi.dto.response.IdentityResponse;
 import com.unloadbrain.assignement.payconiq.stockapi.dto.response.StockResponse;
 import com.unloadbrain.assignement.payconiq.stockapi.dto.response.StocksResponse;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import scala.concurrent.duration.Duration;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 
 public class StockReactiveServiceTest {
 
     private ActorSystem actorSystem;
 
-    @Before
+    @BeforeEach
     public void setup() {
         actorSystem = ActorSystem.create();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         Duration duration = Duration.create(10L, TimeUnit.SECONDS);
         TestKit.shutdownActorSystem(actorSystem, duration, true);

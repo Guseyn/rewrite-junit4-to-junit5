@@ -4,17 +4,14 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.testkit.TestActorRef;
 import akka.testkit.TestKit;
-import com.unloadbrain.assignement.payconiq.stockapi.dto.reqeust.CreateStockRequest;
-import com.unloadbrain.assignement.payconiq.stockapi.dto.reqeust.GetStockRequest;
-import com.unloadbrain.assignement.payconiq.stockapi.dto.reqeust.GetStocksRequest;
-import com.unloadbrain.assignement.payconiq.stockapi.dto.reqeust.UpdateStockRequest;
+import com.unloadbrain.assignement.payconiq.stockapi.dto.reqeust.*;
 import com.unloadbrain.assignement.payconiq.stockapi.dto.response.IdentityResponse;
 import com.unloadbrain.assignement.payconiq.stockapi.dto.response.StockResponse;
 import com.unloadbrain.assignement.payconiq.stockapi.dto.response.StocksResponse;
 import com.unloadbrain.assignement.payconiq.stockapi.service.StockPersistenceService;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import scala.concurrent.duration.Duration;
@@ -23,25 +20,19 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StockActorTest {
 
     private ActorSystem actorSystem;
 
-    @Before
+    @BeforeEach
     public void setup() {
         actorSystem = ActorSystem.create();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         Duration duration = Duration.create(10L, TimeUnit.SECONDS);
         TestKit.shutdownActorSystem(actorSystem, duration, true);

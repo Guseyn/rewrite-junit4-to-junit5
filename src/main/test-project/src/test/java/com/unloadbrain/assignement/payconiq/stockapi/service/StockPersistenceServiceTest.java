@@ -10,9 +10,7 @@ import com.unloadbrain.assignement.payconiq.stockapi.dto.response.StocksResponse
 import com.unloadbrain.assignement.payconiq.stockapi.exception.StockNotFoundException;
 import com.unloadbrain.assignement.payconiq.stockapi.util.DateTimeUtil;
 import com.unloadbrain.assignement.payconiq.stockapi.util.UuidUtil;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.data.domain.Slice;
 
@@ -20,20 +18,14 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 
 public class StockPersistenceServiceTest {
 
     private final StockRepository stockRepositoryMock;
     private final UuidUtil uuidUtilMock;
     private final DateTimeUtil dateTimeUtilMock;
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     private StockPersistenceService stockPersistenceService;
 
@@ -99,16 +91,16 @@ public class StockPersistenceServiceTest {
 
     @Test
     public void shouldThrowExceptionWhenReturnStockIfNotExist() {
+        assertThrows(StockNotFoundException.class, () -> {
 
         // Given
 
-        when(stockRepositoryMock.findById(any(String.class))).thenReturn(Optional.empty());
-
-        thrown.expect(StockNotFoundException.class);
-        thrown.expectMessage("Stock [id: unknown] not found.");
+            when(stockRepositoryMock.findById(any(String.class))).thenReturn(Optional.empty());
+            thrown.expectMessage("Stock [id: unknown] not found.");
 
         // When
-        stockPersistenceService.getStock("unknown");
+            stockPersistenceService.getStock("unknown");
+        });
 
         // Then
         // Expect test to be passed.
@@ -181,22 +173,22 @@ public class StockPersistenceServiceTest {
 
     @Test
     public void shouldThrowExceptionWhenUpdateStockIfNotExist() {
+        assertThrows(StockNotFoundException.class, () -> {
 
         // Given
 
-        UpdateStockRequest updateStockRequest = UpdateStockRequest.builder()
+            UpdateStockRequest updateStockRequest = UpdateStockRequest.builder()
                 .id("unknown")
                 .name("Apple Inc.")
                 .currentPrice(BigDecimal.TEN)
                 .build();
 
-        when(stockRepositoryMock.findById(any(String.class))).thenReturn(Optional.empty());
-
-        thrown.expect(StockNotFoundException.class);
-        thrown.expectMessage("Stock [id: unknown] not found.");
+            when(stockRepositoryMock.findById(any(String.class))).thenReturn(Optional.empty());
+            thrown.expectMessage("Stock [id: unknown] not found.");
 
         // When
-        stockPersistenceService.updateStock(updateStockRequest);
+            stockPersistenceService.updateStock(updateStockRequest);
+        });
 
         // Then
         // Expect test to be passed.

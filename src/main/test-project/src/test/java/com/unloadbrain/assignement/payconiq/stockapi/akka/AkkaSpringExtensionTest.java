@@ -1,10 +1,10 @@
 package com.unloadbrain.assignement.payconiq.stockapi.akka;
 
 import akka.actor.ExtendedActorSystem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 

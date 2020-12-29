@@ -8,8 +8,8 @@ import com.unloadbrain.assignement.payconiq.stockapi.dto.response.IdentityRespon
 import com.unloadbrain.assignement.payconiq.stockapi.dto.response.StockResponse;
 import com.unloadbrain.assignement.payconiq.stockapi.dto.response.StocksResponse;
 import com.unloadbrain.assignement.payconiq.stockapi.service.StockReactiveService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -23,10 +23,7 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
 
 
 @RunWith(SpringRunner.class)
@@ -42,7 +39,7 @@ public class StockAPIContractIT {
 
     private WebTestClient webTestClient;
 
-    @Before
+    @BeforeEach
     public void setup() {
         webTestClient = WebTestClient.bindToController(new StockAPI(stockReactiveService)).build();
     }
