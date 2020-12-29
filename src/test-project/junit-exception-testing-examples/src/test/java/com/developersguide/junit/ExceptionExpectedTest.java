@@ -1,17 +1,21 @@
 package com.developersguide.junit;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExceptionExpectedTest {
-	@Test(expected = ArithmeticException.class)
+	@Test
     public void testDivisionWithException() {
-        int i = 1 / 0;
+        assertThrows(ArithmeticException.class, () -> {
+            int i = 1 / 0;
+        });
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testEmptyList() {
-        new ArrayList<>().get(0);
+        assertThrows(IndexOutOfBoundsException.class, () -> new ArrayList<>().get(0));
     }
 }
